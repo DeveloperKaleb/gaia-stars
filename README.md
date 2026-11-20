@@ -38,6 +38,7 @@ attribution above.
 | `dr3-1pct/r<path>.bin` | One tile per node of the tree: `r.bin` is the root, `r07.bin` its child 0's child 7 |
 | `dr3-1pct/r<path>.ids` | Each tile's stars named, in the same order: added 2026-11-19, the tiles unchanged |
 | `dr3-1pct/r<path>.names.json` | The friendlier names some of a tile's stars have, `{ k: name }` by place in the tile: added 2026-11-19 |
+| `dr3-1pct/r<path>.first.json` | The oldest catalogue each star is in, `{ k: code }`, the codes those of `FIRST_RECORDS` in the site's `js/starnames.js`; a star not listed is in none older than Gaia: added 2026-11-19 |
 
 A new selection or format goes in a folder of its own beside this one, so the page can
 move to it without the old one changing under it.
