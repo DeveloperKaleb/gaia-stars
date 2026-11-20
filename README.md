@@ -36,6 +36,7 @@ attribution above.
 |---|---|
 | `dr3-1pct/index.json` | The tree: its frame, the root cube's half-width, stars per tile, and every tile as `[path, count]` |
 | `dr3-1pct/r<path>.bin` | One tile per node of the tree: `r.bin` is the root, `r07.bin` its child 0's child 7 |
+| `dr3-1pct/r<path>.ids` | Each tile's stars named, in the same order: added 2026-11-19, the tiles unchanged |
 
 A new selection or format goes in a folder of its own beside this one, so the page can
 move to it without the old one changing under it.
@@ -57,6 +58,19 @@ Each star is 8 bytes, little-endian:
 | 0-1, 2-3, 4-5 | x, y, z as uint16 across the tile's own cube (0 is its low edge, 65,535 its high edge) |
 | 6 | Absolute G magnitude, in eighths from -8 (byte = (M + 8) × 8) |
 | 7 | BP-RP colour, in fortieths from -1 (byte = (c + 1) × 40); 255 where Gaia has none |
+
+Beside each tile, its ID file names its stars, in the tile's order, for the page to load
+only about a star a reader has picked:
+
+| Bytes | What |
+|---|---|
+| 8 per star | Its Gaia DR3 `source_id`, as uint64 |
+| 4 | How many of the tile's stars have a Hipparcos number, as uint32 |
+| 8 per such star | Its place in the tile, then its Hipparcos number, both uint32 |
+
+Hipparcos numbers are those Gaia's `gaiadr3.hipparcos2_best_neighbour` gives. The tiles
+were rebuilt with the IDs and checked byte for byte against those already here, so the
+`.bin` files did not change.
 
 The code that writes and reads them is `js/startiles.js` in the site repository, with
 its tests; the tools are `tools/gaiastars/fetch.mjs` and `build.mjs`.
