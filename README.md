@@ -37,6 +37,7 @@ attribution above.
 | `dr3-1pct/index.json` | The tree: its frame, the root cube's half-width, stars per tile, and every tile as `[path, count]` |
 | `dr3-1pct/r<path>.bin` | One tile per node of the tree: `r.bin` is the root, `r07.bin` its child 0's child 7 |
 | `dr3-1pct/r<path>.ids` | Each tile's stars named, in the same order: added 2026-11-19, the tiles unchanged |
+| `dr3-1pct/r<path>.names.json` | The friendlier names some of a tile's stars have, `{ k: name }` by place in the tile: added 2026-11-19 |
 
 A new selection or format goes in a folder of its own beside this one, so the page can
 move to it without the old one changing under it.
@@ -71,6 +72,14 @@ only about a star a reader has picked:
 Hipparcos numbers are those Gaia's `gaiadr3.hipparcos2_best_neighbour` gives. The tiles
 were rebuilt with the IDs and checked byte for byte against those already here, so the
 `.bin` files did not change.
+
+A star's name file entry, where it has one, is the best of: a proper name, Bayer, Flamsteed,
+Wolf or Ross, Gliese (GJ), a variable star's name, HD, LHS; the page falls back on the
+Hipparcos number, then Gaia's. 62,682 stars have one. The names come from
+[SIMBAD](https://simbad.u-strasbg.fr/) (Wenger et al. 2000, A&AS 143, 9), asked through
+its mirror at IDIA while Strasbourg was offline, with data to 2026-10-14; and HD numbers
+from the Hipparcos catalogue (ESA 1997, VizieR I/239). This research has made use of the
+SIMBAD database, operated at CDS, Strasbourg, France.
 
 The code that writes and reads them is `js/startiles.js` in the site repository, with
 its tests; the tools are `tools/gaiastars/fetch.mjs` and `build.mjs`.
